@@ -7,20 +7,11 @@ region = "us-west-1"
 #Define ec2 instance
 resource "aws_instance" "instance1" {
 instance_type = "t2.micro"
-key_name = "SNC"
+key_name = "office"
 security_groups = ["Terraform-SG"]
 ami = "ami-01154c8b2e9a14885"
 tags = {
 name = "ubuntu-20.04"
-}
-}
-
-
-resource "aws_s3_bucket" "srisree3217" 
-  bucket = "srisree321"
-  acl    = "private"
-versioning {
-enabled = true
 }
 }
 
