@@ -1,17 +1,59 @@
 provider "aws" {
-access_key = "AKIAZYP6DJKMLWO7PWXE"
-secret_key = "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"
-region = "us-west-1"
+access_key = "${var.accesskey}"
+secret_key = "${var.seceratkey}"
+region = "${var.region}"
 }
 
 #Define ec2 instance
 resource "aws_instance" "instance1" {
-instance_type = "t2.micro"
-key_name = "office"
-security_groups = ["Terraform-SG"]
-ami = "ami-01154c8b2e9a14885"
+instance_type = "${var.instancetype}"
+key_name = "${var.key}"
+security_groups = "${var.securitygroups}"
+ami = "${var.imageid}"
 tags = {
 name = "ubuntu-20.04"
 }
 }
 
+resource "aws_s3_bucket" "srisree43210" {
+  bucket = "${var.awss3bucket}"
+  acl    = "${var.acl}"
+versioning {
+enabled = true
+}
+}
+
+variable "region" {
+default = "us-west-1"
+}
+variable "accesskey" {
+type = string
+}
+
+variable "seceratkey" {
+type = string
+}
+
+variable "imageid" {
+default = "ami-01154c8b2e9a14885"
+}
+
+variable "key" {
+default = "SNC"
+}
+
+variable "securitygroups" {
+default = ["Terraform-SG"]
+}
+
+variable "instancetype" {
+default = "t2.micro"
+}
+
+variable "awss3bucket" {
+default = "srisree3210"
+}
+
+variable "acl" {
+default = "private"
+}
